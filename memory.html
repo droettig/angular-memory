@@ -1,0 +1,40 @@
+<html ng-app>
+	<head>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/memory.css">
+		<link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=BenchNine' rel='stylesheet' type='text/css'>
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+		<div class="container" ng-controller="cardController">
+			<div class="row">
+				<h1 class="center">Memory</h1>
+				<h4 class="center">in AngularJS</h4>
+			</div>
+			<div class="row">
+				<table class="center-table">
+					<tr ng-repeat="row in rows">
+						<td ng-repeat="column in columns" ng-switch on="isCardInPlay(row,column)">
+							<a ng-switch-when="true" id="{{getCardId(row,column)}}" ng-click="showCardByRowAndColumn(row,column)" >
+								<img class="img-polaroid" src="{{getCurrentCardImage(row,column)}}"></img>
+							</a>
+							<img ng-switch-when="false" src="images/background.png"></img>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- /container -->
+		<script src="js/jquery.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/memory.js"></script>
+
+	</body>
+</html>

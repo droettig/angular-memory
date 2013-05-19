@@ -1,0 +1,25 @@
+.center-table {
+	margin: 0 auto !important;
+	float: none !important;
+}
+.center {
+	text-align: center;
+}
+.pointer {
+	cursor: pointer;
+}
+a:hover, a:active, a:focus {
+    outline: none;
+}
+a {
+   outline: none;
+}
+body {
+	background-image: url('../images/nami.png');
+	font-family: 'Berkshire Swash', cursive;
+	color: #DDDDDD;
+}
+h4 {
+	font-family: 'BenchNine', sans-serif;
+	color: #CCCCCC;
+}

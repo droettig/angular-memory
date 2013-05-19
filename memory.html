@@ -20,9 +20,9 @@
 			<div class="row">
 				<table class="center-table">
 					<tr ng-repeat="row in rows">
-						<td ng-repeat="column in columns" ng-switch on="isCardInPlay(row,column)">
-							<a ng-switch-when="true" id="{{getCardId(row,column)}}" ng-click="showCardByRowAndColumn(row,column)" >
-								<img class="img-polaroid" src="{{getCurrentCardImage(row,column)}}"></img>
+						<td ng-repeat="column in columns" ng-switch on="getCardInTable(row,column).inPlay">
+							<a ng-switch-when="true" id="{{getCardInTable(row,column).id}}" ng-click="showCard(getCardInTable(row,column))" >
+								<img class="img-polaroid" src="{{getCardInTable(row,column).visibleImagePath}}"></img>
 							</a>
 							<img ng-switch-when="false" src="images/background.png"></img>
 						</td>

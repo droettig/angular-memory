@@ -24,54 +24,6 @@ function Card(id, imagePath)
 	}
 };
 
-function StopWatch(startTime)
-{
-	var startTime = startTime;
-	var stopTime = null;
-	var running = false;
-
-	function getTime()
-	{
-		var day = new Date();
-		return day.getTime();
-	}
-
-
-	this.start = function()
-	{
-		if (running)
-		{
-			return;
-		}
-		else if (startTime != null)
-		{
-			stopTime = null;
-		}
-
-		running = true;
-		startTime = getTime();
-	}
-
-	this.stop = function()
-	{
-		if (!running)
-		{
-			return;
-		}
-
-		stopTime = getTime();
-		running = false;
-	}
-
-	this.duration = function()
-	{
-		if (startTime == null || stopTime == null)
-			return 'Undefined';
-		else
-			return (stopTime - startTime) / 1000;
-	}
-};
-
 function arrayShuffle(theArray)
 {
 	var len = theArray.length;
@@ -85,47 +37,24 @@ function arrayShuffle(theArray)
 	}
 };
 
-function getArrayIndexFromTable(row, column)
-{
-	if (row == 1)
-	{
-		row = 4;
-	}
-	if (row == 2)
-	{
-		row = 8;
-	}
-	if (row == 3)
-	{
-		row = 12;
-	}
-	return row + column;
-};
-
 function cardController($scope, $timeout)
 {
+	var rowIdMapping = new Array()
+	rowIdMapping[0] = 0;
+	rowIdMapping[1] = 4;
+	rowIdMapping[2] = 8;
+	rowIdMapping[3] = 12;
+	
 	var firstSelectedCard = null;
 	var firstClick = true;
 	var inputLocked = false;
 
 	var cards = new Array();
 
-	cards[0] = new Card(0, "images/pic01.jpg");
-	cards[1] = new Card(1, "images/pic02.jpg");
-	cards[2] = new Card(2, "images/pic03.jpg");
-	cards[3] = new Card(3, "images/pic04.jpg");
-	cards[4] = new Card(4, "images/pic05.jpg");
-	cards[5] = new Card(5, "images/pic06.jpg");
-	cards[6] = new Card(6, "images/pic07.jpg");
-	cards[7] = new Card(7, "images/pic08.jpg");
-	cards[8] = new Card(8, "images/pic01.jpg");
-	cards[9] = new Card(9, "images/pic02.jpg");
-	cards[10] = new Card(10, "images/pic03.jpg");
-	cards[11] = new Card(11, "images/pic04.jpg");
-	cards[12] = new Card(12, "images/pic05.jpg");
-	cards[13] = new Card(13, "images/pic06.jpg");
-	cards[14] = new Card(14, "images/pic07.jpg");
-	cards[15] = new Card(15, "images/pic08.jpg");
+	for (var i = 0; i < 16; i++)
+	{
+		cards[i] = new Card(i, "images/pic" + i % 8 + ".jpg");
+	};
 
 	arrayShuffle(cards);
 
@@ -133,24 +62,9 @@ function cardController($scope, $timeout)
 	$scope.rows = new Array(0, 1, 2, 3);
 	$scope.columns = new Array(0, 1, 2, 3);
 
-	$scope.isCardInPlay = function(row, column)
+	$scope.getCardInTable = function(row, column)
 	{
-		return $scope.cards[getArrayIndexFromTable(row, column)].inPlay;
-	}
-
-	$scope.getCardId = function(row, column)
-	{
-		return $scope.cards[getArrayIndexFromTable(row, column)].id;
-	}
-
-	$scope.getCurrentCardImage = function(row, column)
-	{
-		return $scope.cards[getArrayIndexFromTable(row, column)].visibleImagePath;
-	}
-
-	$scope.showCardByRowAndColumn = function(row, column)
-	{
-		$scope.showCard($scope.cards[getArrayIndexFromTable(row, column)]);
+		return $scope.cards[rowIdMapping[row]+column];
 	}
 
 	$scope.showCard = function(card)

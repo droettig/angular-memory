@@ -1,1 +1,1 @@
-A version of Memory in AngularJS
+A version of Memory in AngularJS.
